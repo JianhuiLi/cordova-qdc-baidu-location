@@ -1,6 +1,6 @@
 #百度地图定位Android版插件
 ####版本
-基于百度地图Android版定位SDK（v5.3）
+基于百度地图Android版定位SDK（v7.1）
 
 ####一，申请密钥
 请参照：[申请密钥Android定位SDK](http://developer.baidu.com/map/index.php?title=android-locsdk/guide/key)

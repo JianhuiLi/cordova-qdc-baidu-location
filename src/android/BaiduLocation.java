@@ -135,6 +135,11 @@ public class BaiduLocation extends CordovaPlugin {
                 mLocationClient.stop();
             }
         }
+
+        void onConnectHotSpotMessage(java.lang.String connectWifiMac,
+                           int hotSpotState){
+             //DO nothing
+                           }
     };
 
     /**
