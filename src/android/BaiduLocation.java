@@ -56,6 +56,7 @@ public class BaiduLocation extends CordovaPlugin {
                 sb.append(location.getLongitude());
                 sb.append("\n radius : ");
                 sb.append(location.getRadius());
+
                 if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
                     sb.append("\n speed : ");
                     sb.append(location.getSpeed());// 单位：公里每小时
@@ -111,17 +112,7 @@ public class BaiduLocation extends CordovaPlugin {
                 } else {
                     json.put("describe", "定位失败");
                 }
-    //            sb.append("\nlocationdescribe : ");
-    //            sb.append(location.getLocationDescribe());// 位置语义化信息
-    //            List<Poi> list = location.getPoiList();// POI数据
-    //            if (list != null) {
-    //                sb.append("\npoilist size = : ");
-    //                sb.append(list.size());
-    //                for (Poi p : list) {
-    //                    sb.append("\npoi= : ");
-    //                    sb.append(p.getId() + " " + p.getName() + " " + p.getRank());
-    //                }
-    //            }
+   
                 LOG.i(LOG_TAG, sb.toString());
 
                 PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, json);
@@ -139,10 +130,9 @@ public class BaiduLocation extends CordovaPlugin {
             }
         }
 
-        public void onConnectHotSpotMessage(java.lang.String connectWifiMac,
-                           int hotSpotState){
+        public void onConnectHotSpotMessage(java.lang.String connectWifiMac, int hotSpotState){
              //DO nothing
-                           }
+        }
     };
 
     /**
