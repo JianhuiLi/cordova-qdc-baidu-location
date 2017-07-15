@@ -1,0 +1,31 @@
+{
+  "name": "cordova-plugin-baidu-location",
+  "version": "1.0.0",
+  "description": "Cordova Baidu Location Plugin",
+  "types": "./types/index.d.ts",
+  "cordova": {
+    "id": "cordova-plugin-baidu-location",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jianhuili/cordova-qdc-baidu-location"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "keywords": [
+    "cordova",
+    "baidu-location"
+  ],
+  "scripts": {
+  },
+  "author": "Albatross76",
+  "license": "MIT",
+  "engines": {
+  },
+  "devDependencies": {
+  }
+}
