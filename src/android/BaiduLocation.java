@@ -1,5 +1,6 @@
 package com.qdc.plugins.baidu;
 
+import java.text.DecimalFormat; 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.LOG;
@@ -40,33 +41,33 @@ public class BaiduLocation extends CordovaPlugin {
 
                 json.put("time", location.getTime());
                 json.put("locType", location.getLocType());
-                json.put("latitude", location.getLatitude());
-                json.put("lontitude", location.getLongitude());
+                json.put("latitude",  (float)location.getLatitude());
+                json.put("longitude", (float)location.getLongitude());
                 json.put("radius", location.getRadius());
 
                 StringBuilder sb = new StringBuilder(256);
                 sb.append("time : ");
                 sb.append(location.getTime());
-                sb.append("\nerror code : ");
+                sb.append("\n error code : ");
                 sb.append(location.getLocType());
-                sb.append("\nlatitude : ");
+                sb.append("\n latitude : ");
                 sb.append(location.getLatitude());
-                sb.append("\nlontitude : ");
+                sb.append("\n lontitude : ");
                 sb.append(location.getLongitude());
-                sb.append("\nradius : ");
+                sb.append("\n radius : ");
                 sb.append(location.getRadius());
                 if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
-                    sb.append("\nspeed : ");
+                    sb.append("\n speed : ");
                     sb.append(location.getSpeed());// 单位：公里每小时
-                    sb.append("\nsatellite : ");
+                    sb.append("\n satellite : ");
                     sb.append(location.getSatelliteNumber());
-                    sb.append("\nheight : ");
+                    sb.append("\n height : ");
                     sb.append(location.getAltitude());// 单位：米
-                    sb.append("\ndirection : ");
+                    sb.append("\n direction : ");
                     sb.append(location.getDirection());// 单位度
-                    sb.append("\naddr : ");
+                    sb.append("\n addr : ");
                     sb.append(location.getAddrStr());
-                    sb.append("\ndescribe : ");
+                    sb.append("\n describe : ");
                     sb.append("gps定位成功");
 
                     json.put("speed", location.getSpeed());
@@ -76,37 +77,39 @@ public class BaiduLocation extends CordovaPlugin {
                     json.put("addr", location.getAddrStr());
                     json.put("describe", "gps定位成功");
                 } else if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
-                    sb.append("\naddr : ");
+                    sb.append("\n addr : ");
                     sb.append(location.getAddrStr());
                     //运营商信息
-                    sb.append("\noperationers : ");
+                    sb.append("\n operationers : ");
                     sb.append(location.getOperators());
-                    sb.append("\ndescribe : ");
+                    sb.append("\n describe : ");
                     sb.append("网络定位成功");
 
                     json.put("addr", location.getAddrStr());
                     json.put("operationers", location.getOperators());
                     json.put("describe", "网络定位成功");
                 } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {// 离线定位结果
-                    sb.append("\ndescribe : ");
-                    sb.append("离线定位成功，离线定位结果也是有效的");
+                    sb.append("\n describe : ");
+                    sb.append("离线定位成功");
 
-                    json.put("describe", "离线定位成功，离线定位结果也是有效的");
+                    json.put("describe", "离线定位成功");
                 } else if (location.getLocType() == BDLocation.TypeServerError) {
-                    sb.append("\ndescribe : ");
+                    sb.append("\n describe : ");
                     sb.append("服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因");
 
-                    json.put("describe", "服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因");
+                    json.put("describe", "服务端网络定位失败");
                 } else if (location.getLocType() == BDLocation.TypeNetWorkException) {
-                    sb.append("\ndescribe : ");
+                    sb.append("\n describe : ");
                     sb.append("网络不同导致定位失败，请检查网络是否通畅");
 
                     json.put("describe", "网络不同导致定位失败，请检查网络是否通畅");
                 } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
-                    sb.append("\ndescribe : ");
+                    sb.append("\n describe : ");
 
                     sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
-                    json.put("describe", "无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
+                    json.put("describe", "无法获取有效定位依据导致定位失败");
+                } else {
+                    json.put("describe", "定位失败");
                 }
     //            sb.append("\nlocationdescribe : ");
     //            sb.append(location.getLocationDescribe());// 位置语义化信息
@@ -121,7 +124,7 @@ public class BaiduLocation extends CordovaPlugin {
     //            }
                 LOG.i(LOG_TAG, sb.toString());
 
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, sb.toString());
+                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, json);
                 pluginResult.setKeepCallback(true);
                 cbCtx.sendPluginResult(pluginResult);
             } catch (JSONException e) {
@@ -136,7 +139,7 @@ public class BaiduLocation extends CordovaPlugin {
             }
         }
 
-        void onConnectHotSpotMessage(java.lang.String connectWifiMac,
+        public void onConnectHotSpotMessage(java.lang.String connectWifiMac,
                            int hotSpotState){
              //DO nothing
                            }
